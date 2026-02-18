@@ -183,7 +183,8 @@ switch -CaseSensitive -Regex ($lines) {{
         finally {
             if ($avLogForceNoColor -eq $null) {
                 Remove-Item Env:AV_LOG_FORCE_NOCOLOR -ErrorAction SilentlyContinue
-            } else {
+            }
+            else {
                 $Env:AV_LOG_FORCE_NOCOLOR = $avLogForceNoColor
             }
         }
