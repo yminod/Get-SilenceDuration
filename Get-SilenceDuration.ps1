@@ -30,10 +30,15 @@ Minimum silence duration in seconds. Default is 1.0.
 Detect silence independently for each channel.
 
 .PARAMETER Serial
-Force serial execution. Default is parallel.
+Process files sequentially (disable parallel processing).
 
 .PARAMETER ThrottleLimit
 Maximum number of parallel FFmpeg processes. Default is 5.
+Ignored when -Serial is specified.
+
+.PARAMETER InitialFileCount
+Initial capacity for the internal file list (default: 128).
+You can increase this when you expect a large number of input files to reduce list resizing.
 
 .EXAMPLE
 Get-SilenceDuration *.wav -Serial
@@ -44,6 +49,10 @@ Detect silence in all WAV files in serial mode.
 Get-ChildItem *.wav | Get-SilenceDuration | Export-Csv -NoTypeInformation -Encoding utf8BOM -UseQuotes AsNeeded .\silence.csv
 
 Detect silence from pipeline input and export results to (Excel compatible) CSV.
+
+.INPUTS
+System.String
+You can pipe file paths (strings) into this function.
 
 .OUTPUTS
 System.Management.Automation.PSCustomObject
@@ -58,9 +67,9 @@ StartHMS    Human readable start time
 EndHMS      Human readable end time
 
 .NOTES
-Requires FFmpeg to be installed and available in PATH.
-
-Designed for PowerShell 7.4+.
+Requirements:
+- PowerShell 7.4+
+- ffmpeg available on PATH
 
 .LINK
 https://ffmpeg.org/ffmpeg-filters.html#silencedetect
