@@ -169,7 +169,7 @@ switch -CaseSensitive -Regex ($lines) {{
             $thresholdStr = [string]$ThresholdDbfs
             $minDurationStr = [string]$MinDuration
 
-            if ($Serial) {
+            if ($Serial -or $files.Count -lt 2) {
                 $files | ForEach-Object `
                   -Process ([scriptblock]::Create(
                                 ($sbTemplate -f
